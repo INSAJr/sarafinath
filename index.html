@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SARAFINA - Menu Gothique</title>
+    <meta name="description" content="Découvrez l'expérience culinaire unique de SARAFINA. Menu raffiné et ambiance gothique.">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <header class="hero" role="banner">
+       <div class="overlay">
+           <img src="logo-sarafina.jpg" alt="Logo de SARAFINA, un restaurant" class="hero-logo" loading="eager" />
+           <h1 class="hero-title">Sarafina</h1>
+           <p class="hero-subtitle">Une expérience culinaire unique</p>
+       </div>
+   </header>
+
+    <main role="main">
+        <section id="menu" class="menu-section">
+            <!-- Plats Principaux -->
+            <div class="category">
+                <h3 class="category-title">Plats Principaux</h3>
+                <!-- Première ligne de plats -->
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="burger.jpg" alt="Image de Hamburger" loading="lazy" />
+                        </div>
+                        <h4>Hamburger Royal</h4>
+                        <p class="price">2500 FCFA</p>
+                        <button class="add-to-cart" data-name="Hamburger" data-price="2500" data-image="burger.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="poulet-roti.jpg" alt="Image de Poulet Rôti" loading="lazy" />
+                        </div>
+                        <h4>Poulet Rôti aux Herbes</h4>
+                        <p class="price">5000 FCFA</p>
+                        <button class="add-to-cart" data-name="Poulet Rôti" data-price="5000" data-image="poulet-roti.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="pizza.jpg" alt="Image de Pizza" loading="lazy" />
+                        </div>
+                        <h4>Pizza Margherita</h4>
+                        <p class="price">6000 FCFA</p>
+                        <button class="add-to-cart" data-name="Pizza Margherita" data-price="6000" data-image="pizza.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="salade.jpg" alt="Image de Salade" loading="lazy" />
+                        </div>
+                        <h4>Salade César</h4>
+                        <p class="price">3500 FCFA</p>
+                        <button class="add-to-cart" data-name="Salade César" data-price="3500" data-image="salade.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="bolognaise.png" alt="Image de Pâtes Bolognaise" loading="lazy" />
+                        </div>
+                        <h4>Pâtes Bolognaise</h4>
+                        <p class="price">4500 FCFA</p>
+                        <button class="add-to-cart" data-name="Pâtes Bolognaise" data-price="4500" data-image="bolognaise.png">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+                <!-- Deuxième ligne de plats -->
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="poisson-grille.jpg" alt="Image de Poisson Grillé" loading="lazy" />
+                        </div>
+                        <h4>Poisson Grillé</h4>
+                        <p class="price">7000 FCFA</p>
+                        <button class="add-to-cart" data-name="Poisson Grillé" data-price="7000" data-image="poisson-grille.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="riz-poulet.jpg" alt="Image de Riz" loading="lazy" />
+                        </div>
+                        <h4>Riz au Poulet</h4>
+                        <p class="price">4000 FCFA</p>
+                        <button class="add-to-cart" data-name="Riz au Poulet" data-price="4000" data-image="riz-poulet.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="couscous.jpg" alt="Image de Couscous" loading="lazy" />
+                        </div>
+                        <h4>Couscous Royal</h4>
+                        <p class="price">5500 FCFA</p>
+                        <button class="add-to-cart" data-name="Couscous Royal" data-price="5500" data-image="couscous.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="lasagne.jpg" alt="Image de Lasagne" loading="lazy" />
+                        </div>
+                        <h4>Lasagne Maison</h4>
+                        <p class="price">5000 FCFA</p>
+                        <button class="add-to-cart" data-name="Lasagne Maison" data-price="5000" data-image="lasagne.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="steak-frite.jpg" alt="Image de Steak" loading="lazy" />
+                        </div>
+                        <h4>Steak Frites</h4>
+                        <p class="price">6500 FCFA</p>
+                        <button class="add-to-cart" data-name="Steak Frites" data-price="6500" data-image="steak-frite.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Boissons -->
+            <div class="category">
+                <h3 class="category-title">Boissons</h3>
+                <!-- Première ligne de boissons -->
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="kirene.png" alt="Image de l'Eau Kirene" loading="lazy" />
+                        </div>
+                        <h4>Eau Kirene</h4>
+                        <p class="price">1000 FCFA</p>
+                        <button class="add-to-cart" data-name="Eau Kirene" data-price="1000" data-image="kirene.png">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="coca.jpg" alt="Image de Coca Cola" loading="lazy" />
+                        </div>
+                        <h4>Coca Cola</h4>
+                        <p class="price">1200 FCFA</p>
+                        <button class="add-to-cart" data-name="Coca Cola" data-price="1200" data-image="coca.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="fanta.jpg" alt="Image de Fanta" loading="lazy" />
+                        </div>
+                        <h4>Fanta Orange</h4>
+                        <p class="price">1200 FCFA</p>
+                        <button class="add-to-cart" data-name="Fanta Orange" data-price="1200" data-image="fanta.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="sprite.jpg" alt="Image de Sprite" loading="lazy" />
+                        </div>
+                        <h4>Sprite</h4>
+                        <p class="price">1200 FCFA</p>
+                        <button class="add-to-cart" data-name="Sprite" data-price="1200" data-image="sprite.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="jus-gingembre.jpg" alt="Image de Jus Gingembre" loading="lazy" />
+                        </div>
+                        <h4>Élixir de Gingembre</h4>
+                        <p class="price">1500 FCFA</p>
+                        <button class="add-to-cart" data-name="Jus Gingembre" data-price="1500" data-image="jus-gingembre.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+                <!-- Deuxième ligne de boissons -->
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="jus-bissap.jpg" alt="Image de Bissap" loading="lazy" />
+                        </div>
+                        <h4>Jus de Bissap</h4>
+                        <p class="price">1500 FCFA</p>
+                        <button class="add-to-cart" data-name="Jus de Bissap" data-price="1500" data-image="jus-bissap.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="smoothie.jpg" alt="Image de Smoothie Mangue" loading="lazy" />
+                        </div>
+                        <h4>Smoothie Mangue</h4>
+                        <p class="price">2000 FCFA</p>
+                        <button class="add-to-cart" data-name="Smoothie Mangue" data-price="2000" data-image="smoothie.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="limonade.jpg" alt="Image de Limonade" loading="lazy" />
+                        </div>
+                        <h4>Limonade Maison</h4>
+                        <p class="price">1800 FCFA</p>
+                        <button class="add-to-cart" data-name="Limonade Maison" data-price="1800" data-image="limonade.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="the-glace.jpg" alt="Image de Thé Glacé" loading="lazy" />
+                        </div>
+                        <h4>Thé Glacé</h4>
+                        <p class="price">1500 FCFA</p>
+                        <button class="add-to-cart" data-name="Thé Glacé" data-price="1500" data-image="the-glace.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="cocktail.jpg" alt="Image de Cocktail" loading="lazy" />
+                        </div>
+                        <h4>Cocktail du Chef</h4>
+                        <p class="price">2500 FCFA</p>
+                        <button class="add-to-cart" data-name="Cocktail du Chef" data-price="2500" data-image="cocktail.jpg">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        </section>
+    </main>
+
+    <div id="cart-icon" class="cart-icon" role="button" aria-label="Voir le panier">
+        <img src="cart-icon.png" alt="Panier">
+        <span id="cart-count" aria-label="Nombre d'articles dans le panier">0</span>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3 class="cart-title">Vos choix</h3>
+                <button id="quit-modal" class="quit-modal">&times;</button>
+            </div>
+            
+            <div id="cart-items" class="cart-items">
+                <!-- Les articles seront insérés ici dynamiquement -->
+            </div>
+
+            <div class="cart-total">
+                Total: <span id="total-price">0 FCFA</span>
+            </div>
+
+            <input 
+                type="number" 
+                id="table-number" 
+                class="table-input" 
+                placeholder="Numéro de table (1-50)" 
+                min="1" 
+                max="50"
+            >
+
+            <div class="cart-actions">
+                <a href="payment.html" id="proceed-to-payment" class="cart-button">Procéder à la commande et au paiement</a>
+                <button id="clear-cart" class="cart-button">Vider le panier</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+        
+            <p>&copy; 2024 SARAFINA</p>
+            <p class="footer-tagline">Une expérience culinaire inoubliable</p>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+</body>
+</html>

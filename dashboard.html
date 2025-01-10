@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SARAFINA</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Menu latéral -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="logo-sarafina.jpg" alt="SARAFINA Logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="new-orders">
+                    <span>Nouvelles Commandes</span>
+                </li>
+                <li class="nav-item" data-section="preparing-orders">
+                    <span>En Préparation</span>
+                </li>
+                <li class="nav-item" data-section="completed-orders">
+                    <span>Terminées</span>
+                </li>
+                <li class="nav-item" data-section="stats">
+                    <span>Statistiques</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- En-tête avec barre de recherche -->
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher une commande...">
+                    <button>Rechercher</button>
+                </div>
+            </header>
+
+            <!-- Section des nouvelles commandes -->
+            <section id="new-orders" class="orders-section active">
+                <div class="section-header">
+                    <h2>Nouvelles Commandes</h2>
+                    <span class="orders-count">0</span>
+                </div>
+                <div class="orders-grid"></div>
+            </section>
+
+            <!-- Section des commandes en préparation -->
+            <section id="preparing-orders" class="orders-section">
+                <div class="section-header">
+                    <h2>Commandes en Préparation</h2>
+                    <span class="orders-count">0</span>
+                </div>
+                <div class="orders-grid"></div>
+            </section>
+
+            <!-- Section des commandes terminées -->
+            <section id="completed-orders" class="orders-section">
+                <div class="section-header">
+                    <h2>Commandes Terminées</h2>
+                    <span class="orders-count">0</span>
+                </div>
+                <div class="orders-grid"></div>
+            </section>
+
+            <!-- Section des statistiques -->
+            <section id="stats" class="orders-section">
+                <div class="section-header">
+                    <h2>Statistiques</h2>
+                    <div class="stats-filters">
+                        <select id="stats-period" class="stats-select">
+                            <option value="day">Aujourd'hui</option>
+                            <option value="week">Cette semaine</option>
+                            <option value="month">Ce mois</option>
+                            <option value="year">Cette année</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Commandes Totales</h3>
+                        <p id="total-orders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Revenus</h3>
+                        <p id="total-revenue">0 FCFA</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Commandes en Attente</h3>
+                        <p id="pending-orders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Commandes Terminées</h3>
+                        <p id="completed-orders">0</p>
+                    </div>
+                </div>
+                <div class="stats-details">
+                    <div class="stats-chart">
+                        <canvas id="revenue-chart"></canvas>
+                    </div>
+                    <div class="stats-summary">
+                        <div class="summary-card">
+                            <h4>Top 5 Plats</h4>
+                            <ul id="top-items" class="summary-list"></ul>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Heures de Pointe</h4>
+                            <ul id="peak-hours" class="summary-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

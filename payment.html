@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SARAFINA - Paiement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="payment.css">
+</head>
+
+<body>
+    <header>
+        <img src="logo-sarafina.jpg" alt="Logo SARAFINA" class="logo">
+        <h1>Paiement</h1>
+    </header>
+
+    <main>
+        <div class="payment-container">
+            <h2 class="section-title">Récapitulatif de votre commande</h2>
+            <div id="selected-items" class="selected-items">
+                <!-- Les articles seront ajoutés ici dynamiquement -->
+            </div>
+
+            <div class="order-total">
+                <strong>Total à payer:</strong>
+                <span id="order-total"></span>
+            </div>
+
+            <div class="payment-section">
+                <h3 class="section-title">Choisissez votre mode de paiement</h3>
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="wave">
+                        <img src="logo-wave.png" alt="Wave">
+                        <h4>Wave</h4>
+                        <small>77 123 45 67</small>
+                    </div>
+                    <div class="payment-method" data-method="orange-money">
+                        <img src="logo-orange-money.png" alt="Orange Money">
+                        <h4>Orange Money</h4>
+                        <small>77 890 12 34</small>
+                    </div>
+                    <div class="payment-method" data-method="cash">
+                        <img src="argent.png" alt="Espèces">
+                        <h4>Espèces</h4>
+                        <small>Paiement à la caisse</small>
+                    </div>
+                </div>
+                <button id="confirm-payment" class="action-button" disabled>Valider la commande</button>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Retour au menu
+            </a>
+        </div>
+
+        <!-- Modal de confirmation -->
+        <div id="payment-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">×</span>
+                <div class="modal-header">
+                    <img id="modal-logo" src="" alt="Logo du service">
+                    <h3 id="modal-service"></h3>
+                </div>
+                <div class="modal-body">
+                    <p>Montant à payer: <strong><span id="modal-amount"></span> FCFA</strong></p>
+                    <p>Numéro: <strong><span id="modal-number"></span></strong></p>
+                    <p class="redirect-message">Redirection dans <span id="countdown">5</span> secondes...</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let currentOrder = null;
+            let selectedPaymentMethod = null;
+
+            // Récupérer les détails de la commande
+            function getCurrentOrder() {
+                const orderData = localStorage.getItem('currentOrder');
+                if (!orderData) {
+                    // Au lieu de rediriger immédiatement, afficher un message
+                    document.querySelector('.payment-container').innerHTML = `
+                        <div class="error-message">
+                            <h2>Aucune commande en cours</h2>
+                            <p>Votre panier est vide ou la session a expiré.</p>
+                            <a href="index.html" class="action-button">Retourner au menu</a>
+                        </div>
+                    `;
+                    return null;
+                }
+                try {
+                    currentOrder = JSON.parse(orderData);
+                    return currentOrder;
+                } catch (error) {
+                    console.error('Erreur lors de la lecture des données de commande:', error);
+                    return null;
+                }
+            }
+
+            // Afficher les articles
+            function displayItems() {
+                const order = getCurrentOrder();
+                if (!order || !order.items) return;
+
+                const container = document.getElementById('selected-items');
+                container.innerHTML = order.items.map(item => `
+                    <div class="order-item">
+                        <img src="${item.image}" alt="${item.name}" class="item-thumbnail">
+                        <div class="item-details">
+                            <span class="item-name">${item.name}</span>
+                            <div class="item-info">
+                                <span class="item-quantity">Quantité: ${item.quantity || 1}</span>
+                                <span class="item-price">${item.price} FCFA</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Afficher le total
+                document.getElementById('order-total').textContent = order.totalAmount;
+            }
+
+            // Gérer la sélection du mode de paiement
+            function selectPaymentMethod(method) {
+                selectedPaymentMethod = method;
+                document.querySelectorAll('.payment-method').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                document.querySelector(`[data-method="${method}"]`).classList.add('selected');
+                document.getElementById('confirm-payment').disabled = false;
+            }
+
+           // Gérer la commande
+           function handleOrder() {
+                console.log('=== Début handleOrder ===');
+                console.log('État actuel du localStorage:', localStorage);
+                console.log('currentOrder:', currentOrder);
+                console.log('selectedPaymentMethod:', selectedPaymentMethod);
+                
+                if (!currentOrder || !selectedPaymentMethod) {
+                    console.error('Données manquantes:', { currentOrder, selectedPaymentMethod });
+                    return;
+                }
+
+                // Créer l'objet commande final avec toutes les informations nécessaires
+                const finalOrder = {
+                    orderId: 'CMD-' + Date.now(),
+                    items: currentOrder.items,
+                    tableNumber: currentOrder.tableNumber,
+                    totalAmount: currentOrder.totalAmount,
+                    paymentMethod: selectedPaymentMethod === 'cash' ? 'espèces' : selectedPaymentMethod,
+                    status: 'en attente',  // Statut initial pour toutes les commandes
+                    orderDate: new Date().toISOString()
+                };
+
+                console.log('Commande finale à sauvegarder:', finalOrder);
+
+                try {
+                    // Récupérer les commandes existantes
+                    let allOrders = [];
+                    const existingOrders = localStorage.getItem('allOrders');
+                    console.log('Commandes existantes (raw):', existingOrders);
+                    
+                    if (existingOrders) {
+                        allOrders = JSON.parse(existingOrders);
+                    }
+                    console.log('Commandes existantes (parsed):', allOrders);
+                    
+                    // Ajouter la nouvelle commande
+                    allOrders.push(finalOrder);
+                    console.log('Nouvelle liste de commandes:', allOrders);
+                    
+                    // Sauvegarder toutes les commandes
+                    localStorage.setItem('allOrders', JSON.stringify(allOrders));
+                    console.log('Commandes sauvegardées dans localStorage');
+                    console.log('Nouveau contenu de allOrders:', localStorage.getItem('allOrders'));
+                } catch (error) {
+                    console.error('Erreur lors de la sauvegarde:', error);
+                }
+
+                console.log('=== Fin handleOrder ===');
+
+                // Afficher la confirmation de paiement
+                showPaymentConfirmation(selectedPaymentMethod);
+            }
+
+            // Afficher la confirmation de paiement
+            function showPaymentConfirmation(method) {
+                console.log('=== Début showPaymentConfirmation ===');
+                console.log('Méthode de paiement:', method);
+                console.log('État du localStorage avant traitement:', localStorage);
+
+                const modal = document.getElementById('payment-modal');
+                const modalService = document.getElementById('modal-service');
+                const modalLogo = document.getElementById('modal-logo');
+                const modalAmount = document.getElementById('modal-amount');
+                const modalNumber = document.getElementById('modal-number');
+
+                let paymentUrl = '';
+                // Configurer le modal selon le mode de paiement
+                switch (method) {
+                    case 'wave':
+                        modalService.textContent = 'Wave';
+                        modalLogo.src = 'logo-wave.png';
+                        modalNumber.textContent = '77 123 45 67';
+                        paymentUrl = 'https://wave.com/';
+                        break;
+                    case 'orange-money':
+                        modalService.textContent = 'Orange Money';
+                        modalLogo.src = 'logo-orange-money.png';
+                        modalNumber.textContent = '77 890 12 34';
+                        paymentUrl = 'https://orangemoney.orange.sn/';
+                        break;
+                    case 'cash':
+                        modalService.textContent = 'Commande enregistrée';
+                        modalLogo.src = 'argent.png';
+                        modalNumber.textContent = 'Rendez-vous à la caisse pour payer';
+                        paymentUrl = 'index.html';
+                        break;
+                }
+
+                modalAmount.textContent = currentOrder.totalAmount;
+                modal.style.display = 'flex';
+
+                console.log('État du localStorage avant le compte à rebours:', localStorage);
+
+                // Gérer le compte à rebours et le message
+                let countdown = 5;
+                const countdownElement = document.getElementById('countdown');
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    countdownElement.textContent = countdown;
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        console.log('Fin du compte à rebours');
+                        console.log('État du localStorage avant nettoyage:', localStorage);
+                        
+                        // Nettoyer le panier et la commande en cours
+                        localStorage.removeItem('currentOrder');
+                        localStorage.removeItem('cart');
+                        
+                        console.log('État final du localStorage:', localStorage);
+                        // Rediriger vers la page appropriée
+                        window.location.href = paymentUrl;
+                    }
+                }, 1000);
+                
+                console.log('=== Fin showPaymentConfirmation ===');
+            }
+
+
+            // Initialisation
+            document.addEventListener('DOMContentLoaded', () => {
+                // Afficher les articles de la commande
+                displayItems();
+
+                // Gérer la sélection du mode de paiement
+                document.querySelectorAll('.payment-method').forEach(method => {
+                    method.addEventListener('click', () => {
+                        selectPaymentMethod(method.dataset.method);
+                    });
+                });
+
+                // Gérer le bouton de confirmation
+                document.getElementById('confirm-payment').addEventListener('click', handleOrder);
+
+                // Gérer la fermeture du modal
+                document.querySelector('.close').addEventListener('click', () => {
+                    document.getElementById('payment-modal').style.display = 'none';
+                });
+            });
+        </script>
+    </main>
+</body>
+
+</html>
